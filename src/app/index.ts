@@ -1,7 +1,6 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import helmet from 'helmet'
-import { connect, connection } from 'mongoose'
 import routes from './routes'
 
 class App {
@@ -9,7 +8,6 @@ class App {
   public constructor () {
     this.express = express()
     this.meddleware()
-    this.databases()
     this.routes()
   }
 
@@ -21,12 +19,6 @@ class App {
 
   private routes (): void {
     routes(this.express)
-  }
-
-  private databases (): void {
-    connect('mongodb://localhost:27017/tsnode', { useNewUrlParser: true })
-    connection.on('open', (): void => console.log('database on'))
-    connection.on('error', (err): void => console.warn('database error', err))
   }
 }
 

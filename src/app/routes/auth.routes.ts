@@ -7,6 +7,4 @@ routes.post('/register', UserController.register)
 routes.post('/authenticate', UserController.authenticate)
 routes.post('/forgot_password', UserController.forgotPassword)
 
-export default (app: express.Application): void => {
-  app.use('/auth', routes)
-}
+export default (app: express.Application): void => { app.use('/auth', routes) }

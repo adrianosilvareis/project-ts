@@ -1,0 +1,12 @@
+{
+  "secretJWT":"2AFC931AEC7CB7BE45DEC52F4F867",
+  "signOptions":{
+    "expiresIn":"1 days"
+  },
+  "verifyOptions":{
+    "ignoreExpiration":true
+  },
+  "dbhost":"192.168.225.253",
+  "dbname":"tsnode",
+  "dbtestName":"tsnodetest"
+}
