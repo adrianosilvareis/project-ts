@@ -6,7 +6,7 @@
   "verifyOptions":{
     "ignoreExpiration":true
   },
-  "dbhost":"192.168.225.253",
+  "dbhost":"172.18.40.10",
   "dbname":"tsnode",
   "dbtestName":"tsnodetest"
 }

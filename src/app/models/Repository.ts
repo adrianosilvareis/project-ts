@@ -26,7 +26,7 @@ export class Repository<T extends Document> {
 
     this._schema = new Schema(this.arrayToSchema(schema, schemaDefinition), options)
 
-    this._schema.methods = methods
+    this._schema.methods = methods || {}
   }
 
   private _addHookSchema (schemaDefinition: SchemaDefinition): void {

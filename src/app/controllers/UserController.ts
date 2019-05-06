@@ -2,6 +2,7 @@ import { Response, Request } from 'express'
 import User from '../models/User'
 import { boomify, notFound, unauthorized } from 'boom'
 import Token from '../../module/token'
+import { SessionModule } from '../../module/Session'
 
 class UserController {
   public async register (req: Request, res: Response): Promise<Response> {
@@ -33,7 +34,10 @@ class UserController {
       user.password = undefined
 
       const token = await Token.sign({ _id: user.id })
-      return res.json({ token, user })
+
+      const session = await new SessionModule().createSession(user, token)
+
+      return res.json(session)
     } catch (error) {
       if (error.isBoom) {
         const { output } = error

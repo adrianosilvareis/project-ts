@@ -1,8 +1,8 @@
-import { DocumentInterface } from './DocumentInterface'
-import { Repository } from './Repository'
+import { Repository } from '../Repository'
 import { NextFunction } from 'express'
 import { genSalt, hash, compare } from 'bcryptjs'
 import { boomify } from 'boom'
+import { UserInterface } from './UserInterface'
 
 const UserSchema = {
   email: {
@@ -28,16 +28,6 @@ const UserSchema = {
       throw boomify(error)
     }
   }
-}
-
-interface UserInterface extends DocumentInterface {
-  email: string;
-  password?: string;
-  accessNumber: number;
-  enable: boolean;
-  createdAt?: Date;
-  updatedAt?: Date;
-  checkPassword?: Function;
 }
 
 const methods = {

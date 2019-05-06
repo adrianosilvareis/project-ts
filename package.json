@@ -9,7 +9,7 @@
     "build": "npm run clear && npm run compile",
     "dev": "nodemon src/index.ts",
     "test": "",
-    "lint": "npx eslint src/**/*.ts src/**/*.js"
+    "lint": "npx eslint src/**/*.ts"
   },
   "husky": {
     "hooks": {
