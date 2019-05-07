@@ -1,5 +1,4 @@
 import { Document, SchemaDefinition, SchemaOptions, Schema, Model, model } from 'mongoose'
-
 export class Repository<T extends Document> {
   private _schema: Schema
   public ModelName: string

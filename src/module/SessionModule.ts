@@ -7,7 +7,7 @@ export class SessionModule {
     return Session.create({ user, token })
   }
 
-  public async getSession (user: string): Promise<SessionInterface> {
+  public async getSession (user: string | object): Promise<SessionInterface> {
     return Session.findOne({ user })
   }
 }
