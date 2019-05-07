@@ -1,5 +1,5 @@
 import { SignOptions, VerifyOptions, sign, verify } from 'jsonwebtoken'
-import { secretJWT, signOptions, verifyOptions } from '../config/variable.json'
+import { secretJWT, signOptions, verifyOptions } from '../config/jwt.json'
 
 class Token {
   private _secretKey: string | Buffer;

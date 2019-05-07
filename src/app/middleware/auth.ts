@@ -1,0 +1,33 @@
+import { Request, Response, NextFunction } from 'express'
+import { unauthorized } from 'boom'
+import { verify } from 'jsonwebtoken'
+import { secretJWT, verifyOptions } from '../../config/jwt.json'
+import { SessionModule } from '../../module/Session'
+
+export default async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
+  const authHeader = req.headers.authorization
+
+  try {
+    if (!authHeader) throw unauthorized('No token provided')
+
+    const [ scheme, token ] = authHeader.split(' ')
+
+    if (!scheme || !token) throw unauthorized('Token error')
+
+    if (!/^Bearer$/.test(scheme)) throw unauthorized('Token malformatted')
+
+    const decoded = await verify(token, secretJWT, verifyOptions)
+
+    if (!decoded) throw unauthorized('Token invalid')
+
+    req.session = await new SessionModule().getSession(decoded)
+
+    return next()
+  } catch (error) {
+    if (error.isBoom) {
+      const { output } = error
+      return res.status(output.statusCode).json(output.payload)
+    }
+    return res.status(500).json(error)
+  }
+}

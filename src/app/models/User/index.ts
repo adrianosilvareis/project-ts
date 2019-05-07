@@ -16,9 +16,28 @@ const UserSchema = {
       message: (props): string => `${props.value} is not a valid e-mail!`
     }
   },
-  enable: { type: Boolean, default: true },
-  password: { type: String, minlength: [8, 'Your password must be at least 8 characters'], required: true },
-  accessNumber: { type: Number, default: 1 },
+  enable: {
+    type: Boolean,
+    default: true
+  },
+  password: {
+    type: String,
+    select: false,
+    minlength: [8, 'Your password must be at least 8 characters'],
+    required: true
+  },
+  passwordResetToken: {
+    type: String,
+    select: false
+  },
+  passwordResetExpires: {
+    type: Date,
+    select: false
+  },
+  accessNumber: {
+    type: Number,
+    default: 1
+  },
   async preSave (next: NextFunction): Promise<void> {
     try {
       const salt = await genSalt(10)

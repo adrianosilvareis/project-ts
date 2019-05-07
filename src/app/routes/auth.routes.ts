@@ -1,10 +1,11 @@
 import express, { Router } from 'express'
-import UserController from '../controllers/UserController'
+import AuthController from '../controllers/AuthController'
 
 const routes = Router()
 
-routes.post('/register', UserController.register)
-routes.post('/authenticate', UserController.authenticate)
-routes.post('/forgot_password', UserController.forgotPassword)
+routes.post('/register', AuthController.register)
+routes.post('/authenticate', AuthController.authenticate)
+routes.post('/forgot_password', AuthController.forgotPassword)
+routes.post('/reset_password', AuthController.resetPassword)
 
 export default (app: express.Application): void => { app.use('/auth', routes) }
