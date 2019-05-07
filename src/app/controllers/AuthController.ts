@@ -1,8 +1,8 @@
 import { Response, Request } from 'express'
 import User from '../models/User'
 import { boomify, notFound, unauthorized } from 'boom'
-import Token from '../../module/Token'
-import { SessionModule } from '../../module/Session'
+import Token from '../../module/TokenModule'
+import { SessionModule } from '../../module/SessionModule'
 import crypto from 'crypto'
 import mailer from '../../module/mailer'
 

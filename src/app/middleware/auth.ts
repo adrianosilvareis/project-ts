@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import { unauthorized } from 'boom'
 import { verify } from 'jsonwebtoken'
 import { secretJWT, verifyOptions } from '../../config/jwt.json'
-import { SessionModule } from '../../module/Session'
+import { SessionModule } from '../../module/SessionModule'
 
 export default async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   const authHeader = req.headers.authorization
