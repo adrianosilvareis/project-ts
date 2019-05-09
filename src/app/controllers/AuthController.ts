@@ -5,7 +5,6 @@ import Token from '../../module/TokenModule'
 import { SessionModule } from '../../module/SessionModule'
 import crypto from 'crypto'
 import mailer from '../../module/mailer'
-import { runInNewContext } from 'vm'
 
 class UserController {
   public async register (req: Request, res: Response, next: NextFunction): Promise<Response | void> {
