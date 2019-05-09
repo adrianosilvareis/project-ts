@@ -5,8 +5,18 @@ export default async (err: any, req: Request, res: Response, next: NextFunction)
   if (!err) { next() }
   // add logger methods here
   if (err.isBoom) {
-    const { statusCode, payload } = err.output
-    return res.status(statusCode).json(payload)
+    const { name, errors, message, output } = err
+    const { statusCode, payload } = output
+
+    const errorHandler = {
+      name,
+      errors,
+      message,
+      statusCode,
+      payload
+    }
+
+    return res.status(statusCode).json(errorHandler)
   }
   return res.status(500).json(err)
 }

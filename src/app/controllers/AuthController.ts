@@ -1,23 +1,24 @@
-import { Response, Request } from 'express'
+import { Response, Request, NextFunction } from 'express'
 import User from '../models/User'
 import { boomify, notFound, unauthorized } from 'boom'
 import Token from '../../module/TokenModule'
 import { SessionModule } from '../../module/SessionModule'
 import crypto from 'crypto'
 import mailer from '../../module/mailer'
+import { runInNewContext } from 'vm'
 
 class UserController {
-  public async register (req: Request, res: Response): Promise<Response> {
+  public async register (req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
       const user = await User.create(req.body)
       user.password = undefined
       return res.json(user)
     } catch (error) {
-      return res.status(500).json(boomify(error))
+      return next(boomify(error))
     }
   }
 
-  public async authenticate (req: Request, res: Response): Promise<Response> {
+  public async authenticate (req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     try {
       const { email, password } = req.body
 
@@ -42,14 +43,13 @@ class UserController {
       return res.json(session)
     } catch (error) {
       if (error.isBoom) {
-        const { output } = error
-        return res.status(output.statusCode).json(output.payload)
+        return next(error)
       }
       return res.status(500).json(error)
     }
   }
 
-  public async forgotPassword (req: Request, res: Response): Promise<Response> {
+  public async forgotPassword (req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     const { email } = req.body
     try {
       const user = await User.findOne({ email })
@@ -77,16 +77,12 @@ class UserController {
         return res.sendStatus(200)
       })
     } catch (error) {
-      if (error.isBoom) {
-        const { output } = error
-        return res.status(output.statusCode).json(output.payload)
-      }
-      return res.status(400).json(boomify(error, { message: 'Erro on fogot password, try again' }))
+      return next(boomify(error, { message: 'Erro on fogot password, try again' }))
     }
   }
 
   // reset_password
-  public async resetPassword (req: Request, res: Response): Promise<Response> {
+  public async resetPassword (req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     const { email, token, password } = req.body
     try {
       const user = await User.findOne({ email })
@@ -108,11 +104,7 @@ class UserController {
 
       res.sendStatus(200)
     } catch (error) {
-      if (error.isBoom) {
-        const { output } = error
-        return res.status(output.statusCode).json(output.payload)
-      }
-      return res.status(400).json(boomify(error, { message: 'Cannot reset password, try again' }))
+      return next(boomify(error, { message: 'Cannot reset password, try again' }))
     }
   }
 }

@@ -24,10 +24,6 @@ export default async (req: Request, res: Response, next: NextFunction): Promise<
 
     return next()
   } catch (error) {
-    if (error.isBoom) {
-      const { output } = error
-      return res.status(output.statusCode).json(output.payload)
-    }
-    return res.status(500).json(error)
+    return next(error)
   }
 }
