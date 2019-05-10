@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "clear": "rimraf ./dist",
+    "clear": "rimraf ./dist && rimraf ./log",
     "compile": "npx babel src --out-dir dist --extensions \".ts\"",
     "build": "npm run clear && npm run compile",
     "dev": "nodemon src/index.ts",
@@ -26,6 +26,7 @@
     "@types/express": "^4.16.1",
     "@types/helmet": "^0.0.43",
     "@types/jsonwebtoken": "^8.3.2",
+    "@types/log4js": "^2.3.5",
     "@types/mongoose": "^5.3.27",
     "@types/nodemailer": "^4.6.8",
     "@typescript-eslint/eslint-plugin": "^1.7.0",
@@ -47,6 +48,7 @@
     "express": "^4.16.4",
     "helmet": "^3.16.0",
     "jsonwebtoken": "^8.5.1",
+    "log4js": "^4.1.1",
     "mongoose": "^5.5.5",
     "nodemailer": "^6.1.1"
   }

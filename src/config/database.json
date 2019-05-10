@@ -1,5 +1,5 @@
 {
-  "dbhost":"172.21.110.116",
+  "dbhost":"172.27.121.152",
   "dbname":"tsnode",
   "dbtestName":"tsnodetest"
 }

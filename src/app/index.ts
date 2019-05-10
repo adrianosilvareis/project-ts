@@ -2,12 +2,14 @@ import express from 'express'
 import bodyParser from 'body-parser'
 import helmet from 'helmet'
 import routes from './routes'
+import { loggerAccess } from '../module/log4'
 
 class App {
   public express: express.Application
   public constructor () {
     this.express = express()
     this.meddleware()
+    this.express.use(loggerAccess)
     this.routes()
   }
 

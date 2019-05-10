@@ -3,6 +3,7 @@ import { unauthorized } from 'boom'
 import { verify } from 'jsonwebtoken'
 import { secretJWT, verifyOptions } from '../../config/jwt.json'
 import { SessionModule } from '../../module/SessionModule'
+import { loggerApp } from '../../module/log4'
 
 export default async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
   const authHeader = req.headers.authorization
