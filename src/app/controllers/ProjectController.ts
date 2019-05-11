@@ -2,8 +2,8 @@ import { Response, Request, NextFunction } from 'express'
 import { AbstractController } from './AbstractController'
 
 class UserController implements AbstractController {
-  public async list (req: Request, res: Response, next: NextFunction): Promise<void | Response> {
-    next('Method not implemented.')
+  public async list (req: Request, res: Response): Promise<void | Response> {
+    return res.json(['adriano', 'juliana', 'maryana', 'celma', 'lucas'])
   }
   public async create (req: Request, res: Response, next: NextFunction): Promise<void | Response> {
     next('Method not implemented.')
