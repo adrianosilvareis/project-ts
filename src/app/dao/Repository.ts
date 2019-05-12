@@ -1,5 +1,4 @@
 import { Document, SchemaDefinition, SchemaOptions, Schema, Model, model } from 'mongoose'
-import { Query } from './Query'
 
 export class Repository<T extends Document> {
   private _schema: Schema
