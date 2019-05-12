@@ -1,4 +1,4 @@
-import { Repository } from '../Repository'
+import { Repository } from '../../dao/Repository'
 import { NextFunction } from 'express'
 import { genSalt, hash, compare } from 'bcryptjs'
 import { boomify } from 'boom'

@@ -1,4 +1,6 @@
 import { Document, SchemaDefinition, SchemaOptions, Schema, Model, model } from 'mongoose'
+import { Query } from './Query'
+
 export class Repository<T extends Document> {
   private _schema: Schema
   public ModelName: string
@@ -10,6 +12,8 @@ export class Repository<T extends Document> {
   }
 
   public getModel (): Model<T, {}> {
+    // this._schema.methods = new Query()
+
     return model<T>(this.ModelName, this._schema)
   }
 

@@ -1,4 +1,4 @@
-import { Repository } from '../Repository'
+import { Repository } from '../../dao/Repository'
 import { SessionInterface } from './SessionInterface'
 import { Schema } from 'mongoose'
 import { NextFunction } from 'express'
