@@ -1,5 +1,4 @@
 {
-  "secretJWT":"2AFC931AEC7CB7BE45DEC52F4F867",
   "signOptions":{
     "expiresIn":"1 days"
   },

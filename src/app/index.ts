@@ -3,11 +3,13 @@ import bodyParser from 'body-parser'
 import helmet from 'helmet'
 import routes from './routes'
 import { loggerAccess } from '../module/log4'
+import { config } from 'dotenv'
 
 class App {
   public express: express.Application
   public constructor () {
     this.express = express()
+    config()
     this.meddleware()
     this.express.use(loggerAccess)
     this.routes()

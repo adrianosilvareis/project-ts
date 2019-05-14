@@ -1,7 +1,6 @@
 import app from './app'
 import { Database } from './module/Database'
-import { dbhost, dbname } from './config/database.json'
 
-new Database(dbhost, dbname).createMongoConnection()
+new Database(process.env.DB_HOST, process.env.DB_NAME).createMongoConnection()
 
 app.listen(3000)
