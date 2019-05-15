@@ -7,6 +7,6 @@ export interface UserInterface extends DocumentInterface {
   createdAt?: Date;
   updatedAt?: Date;
   checkPassword?: Function;
-  passwordResetToken?: string;
-  passwordResetExpires?: Date;
+  emailValidateToken?: string;
+  emailValidateExpires?: Date;
 }

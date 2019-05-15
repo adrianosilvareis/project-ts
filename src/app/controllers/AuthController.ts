@@ -61,8 +61,8 @@ class UserController {
 
       await User.findOneAndUpdate(user.id, {
         '$set': {
-          passwordResetToken: token,
-          passwordResetExpires: now
+          emailValidateToken: token,
+          emailValidateExpires: now
         }
       })
 
@@ -80,30 +80,55 @@ class UserController {
     }
   }
 
-  // reset_password
   public async resetPassword (req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     const { email, token, password } = req.body
     try {
       const user = await User.findOne({ email })
-        .select('+passwordResetToken passwordResetExpires')
+        .select('+emailValidateToken emailValidateExpires')
 
       if (!user) throw notFound('User not found')
 
-      if (token !== user.passwordResetToken) throw unauthorized('Token invalid')
+      if (token !== user.emailValidateToken) throw unauthorized('Token invalid')
 
       const now = new Date()
 
-      if (now > user.passwordResetExpires) throw unauthorized('Token expired generate a new one')
+      if (now > user.emailValidateExpires) throw unauthorized('Token expired generate a new one')
 
       user.password = password
-      user.passwordResetExpires = undefined
-      user.passwordResetToken = undefined
+      user.emailValidateExpires = undefined
+      user.emailValidateToken = undefined
 
       await user.save()
 
       res.sendStatus(200)
     } catch (error) {
       return next(boomify(error, { message: 'Cannot reset password, try again' }))
+    }
+  }
+
+  public async enableRegistration (req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+    const { email, token } = req.body
+    try {
+      const user = await User.findOne({ email })
+        .select('+emailValidateToken emailValidateExpires')
+
+      if (!user) throw notFound('User not found')
+
+      if (token !== user.emailValidateToken) throw unauthorized('Token invalid')
+
+      const now = new Date()
+
+      if (now > user.emailValidateExpires) throw unauthorized('Token expired generate a new one')
+
+      user.enable = true
+      user.emailValidateExpires = undefined
+      user.emailValidateToken = undefined
+
+      await user.save()
+
+      res.sendStatus(200)
+    } catch (error) {
+      return next(boomify(error, { message: 'Cannot active register, try again' }))
     }
   }
 }

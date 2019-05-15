@@ -1,5 +1,5 @@
 import { SignOptions, VerifyOptions, sign, verify } from 'jsonwebtoken'
-import { secretJWT, signOptions, verifyOptions } from '../config/jwt.json'
+import { signOptions, verifyOptions } from '../config/jwt.json'
 
 class Token {
   private _secretKey: string | Buffer;
@@ -21,4 +21,4 @@ class Token {
   }
 }
 
-export default new Token(secretJWT, signOptions, verifyOptions)
+export default new Token(process.env.JWT_SECRETY, signOptions, verifyOptions)
