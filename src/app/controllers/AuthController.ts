@@ -106,7 +106,7 @@ class UserController {
     }
   }
 
-  public async enableRegistration (req: Request, res: Response, next: NextFunction): Promise<Response | void> {
+  public async activateAccount (req: Request, res: Response, next: NextFunction): Promise<Response | void> {
     const { email, token } = req.body
     try {
       const user = await User.findOne({ email })

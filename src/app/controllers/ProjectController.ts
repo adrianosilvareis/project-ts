@@ -1,31 +1,26 @@
 import { Response, Request, NextFunction } from 'express'
 import { AbstractController } from './AbstractController'
+import { Query } from '../dao/Query'
 import Project from '../models/Project'
+import { boomify } from 'boom'
 
-class UserController implements AbstractController {
+class PorjectController implements AbstractController {
   public async list (req: Request, res: Response): Promise<void | Response> {
-    const project = new Project()
-    project.novoMetodo()
+    const query = new Query(Project, req.query)
 
-    // Project.find({})
+    const resp = await query.exec()
+    const count = await query.counter()
 
-    // title=json-server&author=typicode
-
-    // _page
-    // _limit
-    // _sort
-    // _order
-
-    // first
-    // prev
-    // next
-    // last
-
-    // X-Total-Count
-    return res.json(['adriano', 'juliana', 'maryana', 'celma', 'lucas'])
+    res.set('X-Total-Count', count.toString())
+    return res.json(resp)
   }
   public async create (req: Request, res: Response, next: NextFunction): Promise<void | Response> {
-    next('Method not implemented.')
+    try {
+      const project = await Project.create(req.body)
+      return res.json(project)
+    } catch (error) {
+      return next(boomify(error))
+    }
   }
   public async update (req: Request, res: Response, next: NextFunction): Promise<void | Response> {
     next('Method not implemented.')
@@ -38,4 +33,4 @@ class UserController implements AbstractController {
   }
 }
 
-export default new UserController()
+export default new PorjectController()

@@ -5,7 +5,7 @@ import errorHandler from '../middleware/errorHandler'
 const routes = Router()
 
 routes.post('/register', AuthController.register)
-routes.post('/register_registration', AuthController.enableRegistration)
+routes.post('/activate_account', AuthController.activateAccount)
 routes.post('/authenticate', AuthController.authenticate)
 routes.post('/forgot_password', AuthController.forgotPassword)
 routes.post('/reset_password', AuthController.resetPassword)

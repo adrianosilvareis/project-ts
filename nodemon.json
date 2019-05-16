@@ -1,7 +1,13 @@
 {
-  "watch":["src"],
-  "ext":"ts",
-  "execMap":{
-    "ts":"sucrase-node src/index.ts"
-  }
+  "restartable": "rs",
+  "ignore": [".git", "node_modules/**/node_modules"],
+  "verbose": true,
+  "execMap": {
+    "ts": "sucrase-node src/index.ts"
+  },
+  "watch": ["src/"],
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "ext": "js,json,ts"
 }

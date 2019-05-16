@@ -10,6 +10,7 @@ routes.use(authMiddleware)
 
 routes.use(cache(120))
 
+routes.post('/', ProjectController.create)
 routes.get('/list', ProjectController.list)
 
 routes.use(errorHandlerMiddleware)

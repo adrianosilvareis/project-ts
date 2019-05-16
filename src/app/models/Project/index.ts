@@ -21,10 +21,4 @@ const ProjectSchema = {
   }
 }
 
-const methods = {
-  novoMetodo (): void {
-    // teste
-  }
-}
-
-export default new Repository<ProjectInterface>('Project', ProjectSchema, { timestamps: true }, methods).getModel()
+export default new Repository<ProjectInterface>('Project', ProjectSchema, { timestamps: true }).getModel()

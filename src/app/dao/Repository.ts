@@ -1,4 +1,5 @@
 import { Document, SchemaDefinition, SchemaOptions, Schema, Model, model } from 'mongoose'
+import uniqueValidator from 'mongoose-unique-validator'
 
 export class Repository<T extends Document> {
   private _schema: Schema
@@ -29,6 +30,7 @@ export class Repository<T extends Document> {
     this._schema = new Schema(this.arrayToSchema(schema, schemaDefinition), options)
 
     this._schema.methods = methods || {}
+    this._schema.plugin(uniqueValidator)
   }
 
   private _addHookSchema (schemaDefinition: SchemaDefinition): void {

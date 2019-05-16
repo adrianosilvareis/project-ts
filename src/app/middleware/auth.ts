@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express'
 import { unauthorized } from 'boom'
 import { verify } from 'jsonwebtoken'
-import { secretJWT, verifyOptions } from '../../config/jwt.json'
+import { verifyOptions } from '../../config/jwt.json'
 import { SessionModule } from '../../module/SessionModule'
 
 export default async (req: Request, res: Response, next: NextFunction): Promise<Response | void> => {
@@ -16,7 +16,7 @@ export default async (req: Request, res: Response, next: NextFunction): Promise<
 
     if (!/^Bearer$/.test(scheme)) throw unauthorized('Token malformatted')
 
-    const decoded = await verify(token, secretJWT, verifyOptions)
+    const decoded = await verify(token, process.env.JWT_SECRETY, verifyOptions)
 
     if (!decoded) throw unauthorized('Token invalid')
 

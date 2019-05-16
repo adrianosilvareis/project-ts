@@ -10,7 +10,7 @@ const UserSchema = {
   email: {
     type: String,
     required: true,
-    uniqueBy: true,
+    unique: true,
     validate: {
       validator: function (v): boolean {
         return /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}/g.test(v)
@@ -42,7 +42,7 @@ const UserSchema = {
   },
   async preSave (next: NextFunction): Promise<void> {
     try {
-      if (!this.password) return next()
+      if (!this.createdAt) return next()
 
       const salt = await genSalt(10)
       this.password = await hash(this.password, salt)
@@ -63,7 +63,6 @@ const UserSchema = {
 
       return next()
     } catch (error) {
-      console.log(error)
       throw boomify(error)
     }
   }
