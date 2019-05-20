@@ -19,7 +19,6 @@ export default async (err: any, req: Request, res: Response, next: NextFunction)
 
     if (statusCode >= 500) loggerError.fatal(`${statusCode} - ${message}`)
     if (statusCode >= 400) loggerError.error(`${statusCode} - ${message}`)
-    if (statusCode >= 300) loggerError.warn(`${statusCode} - ${message}`)
 
     return res.status(statusCode).json(errorHandler)
   }

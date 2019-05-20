@@ -41,7 +41,31 @@ export class Query<T extends Document> {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   public async exec (): Promise<any> {
     const skip = this._skip(this.limit, this.page)
-    return this.Model.find(this.find).skip(skip).limit(this.limit).sort(this.sort)
+
+    const list = await this.list(this.find, skip, this.limit, this.sort)
+    const count = await this.counter()
+
+    const totalPage = this.totalPage(this.count, this.limit)
+
+    return {
+      list,
+      count,
+      page: this.page,
+      limit: this.limit,
+      totalPage
+    }
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  public async list (find: any, skip: number, limit: number, sort: string): Promise<any> {
+    return this.Model.find(find).skip(skip).limit(limit).sort(sort)
+  }
+
+  private totalPage (count: number, limit: number): number {
+    if (count === 0) return 1
+    const rest = count % limit
+    if (rest === 0) return count / limit
+    return ((count - rest) / limit) + 1
   }
 
   private _skip (_limit: number, _page: number): number {

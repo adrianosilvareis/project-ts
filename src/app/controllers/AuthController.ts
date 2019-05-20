@@ -66,16 +66,17 @@ class UserController {
         }
       })
 
-      mailer.sendMail({
+      await mailer.sendMail({
         to: email,
         from: 'adriano@email.com.br',
-        html: `<p>Você esqueceu sua senha? não tem problema, utilize esse token: ${token}</p>`
-      }, (err): Response => {
-        if (err) return res.status(400).send({ error: 'Cannot send forgot password email' })
-
-        return res.sendStatus(200)
+        subject: 'message',
+        template: '/auth/forgot_password',
+        context: { token }
       })
+
+      res.sendStatus(200)
     } catch (error) {
+      console.log(error)
       return next(boomify(error, { message: 'Erro on fogot password, try again' }))
     }
   }

@@ -20,8 +20,11 @@ export default async (req: Request, res: Response, next: NextFunction): Promise<
 
     if (!decoded) throw unauthorized('Token invalid')
 
-    req['session'] = await new SessionModule().getSession(decoded)
+    const session = await new SessionModule().getSession(decoded)
 
+    if (!session) throw unauthorized('Session not found')
+
+    req['session'] = session
     return next()
   } catch (error) {
     return next(error)

@@ -6,7 +6,8 @@
   "scripts": {
     "clear": "rimraf ./dist && rimraf ./log",
     "compile": "npx babel src --out-dir dist --extensions \".ts\"",
-    "build": "npm run clear && npm run compile",
+    "copy":"npx copy ./src/config/**/*.* ./dist/config && npx copy ./src/resources/**/*.* ./dist/resources",
+    "build": "npm run clear && npm run compile && npm run copy",
     "dev": "nodemon src/index.ts",
     "test": "",
     "lint": "npx eslint src/**/*.ts"
@@ -18,7 +19,10 @@
     }
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
     "@babel/core": "^7.4.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/plugin-transform-modules-commonjs": "^7.4.4",
     "@babel/preset-typescript": "^7.3.3",
     "@types/bcryptjs": "^2.4.2",
     "@types/body-parser": "^1.17.0",
@@ -56,6 +60,7 @@
     "mongoose": "^5.5.5",
     "mongoose-unique-validator": "^2.0.3",
     "multer": "^1.4.1",
-    "nodemailer": "^6.1.1"
+    "nodemailer": "^6.1.1",
+    "nodemailer-express-handlebars": "^3.0.0"
   }
 }

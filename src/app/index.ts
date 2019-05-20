@@ -1,9 +1,9 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import helmet from 'helmet'
+import { config } from 'dotenv'
 import routes from './routes'
 import { loggerAccess } from '../module/log4'
-import { config } from 'dotenv'
 
 class App {
   public express: express.Application

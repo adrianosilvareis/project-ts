@@ -9,7 +9,7 @@ export const cache = (duration: number): RequestHandler => {
     const cacheBody = mcache.get(key)
 
     if (cacheBody) {
-      return res.status(302).send(cacheBody)
+      return res.status(302).json(cacheBody)
     } else {
       const jsonResponse = res.json
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
